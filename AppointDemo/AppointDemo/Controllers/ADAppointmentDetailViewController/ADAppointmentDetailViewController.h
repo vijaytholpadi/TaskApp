@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ADAppointmentDetailViewController : UIViewController
-
+@property (nonatomic,assign)BOOL isAddingTask;
 @end

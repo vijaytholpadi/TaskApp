@@ -115,6 +115,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 #pragma navigation bar button item methods
 -(void)addAppointmentButtonPressed {
     ADAppointmentDetailViewController *AddAppointmentVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ADAppointmentDetailViewController"];
+    AddAppointmentVC.isAddingTask = YES;
     [self presentViewController:AddAppointmentVC animated:YES completion:nil];
 }
 
