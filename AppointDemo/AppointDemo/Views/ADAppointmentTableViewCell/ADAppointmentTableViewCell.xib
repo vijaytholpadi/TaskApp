@@ -16,22 +16,22 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quc-KX-NQA" userLabel="AppointmentNameLabel">
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due on:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGw-zv-YuX">
-                        <rect key="frame" x="8" y="37" width="60" height="20.5"/>
+                        <rect key="frame" x="8" y="18" width="60" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUT-Oa-87W" userLabel="DueDateLabel">
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qA1-N5-Rcm" userLabel="CategoryColorBadge">
-                        <rect key="frame" x="8" y="70.5" width="20" height="20"/>
+                        <rect key="frame" x="8" y="50" width="20" height="20"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="b8y-Uw-bMv"/>
@@ -39,8 +39,12 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jqR-km-ldL">
-                        <rect key="frame" x="202" y="31" width="156" height="34"/>
-                        <state key="normal" title="Mark as completed">
+                        <rect key="frame" x="318" y="28" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="WLP-Dl-ZeY"/>
+                            <constraint firstAttribute="width" constant="40" id="yWJ-IQ-0Hu"/>
+                        </constraints>
+                        <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
@@ -48,12 +52,12 @@
                 <constraints>
                     <constraint firstItem="Quc-KX-NQA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="4DQ-DE-i2p"/>
                     <constraint firstItem="Quc-KX-NQA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="LYA-cO-BNp"/>
-                    <constraint firstItem="ZGw-zv-YuX" firstAttribute="top" secondItem="Quc-KX-NQA" secondAttribute="top" constant="29" id="Mum-gu-dR1"/>
+                    <constraint firstItem="ZGw-zv-YuX" firstAttribute="top" secondItem="Quc-KX-NQA" secondAttribute="bottom" constant="10" id="Mum-gu-dR1"/>
                     <constraint firstAttribute="centerY" secondItem="jqR-km-ldL" secondAttribute="centerY" constant="-3.75" id="PYa-zQ-jEw"/>
+                    <constraint firstItem="ZGw-zv-YuX" firstAttribute="leading" secondItem="qA1-N5-Rcm" secondAttribute="leading" id="XQ4-4S-lFV"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="qA1-N5-Rcm" secondAttribute="bottom" constant="10" id="gSq-UF-wlR"/>
                     <constraint firstItem="OUT-Oa-87W" firstAttribute="leading" secondItem="ZGw-zv-YuX" secondAttribute="trailing" constant="8" id="hAL-3a-v6d"/>
                     <constraint firstItem="OUT-Oa-87W" firstAttribute="centerY" secondItem="ZGw-zv-YuX" secondAttribute="centerY" id="hO7-eG-rdh"/>
-                    <constraint firstItem="OUT-Oa-87W" firstAttribute="top" secondItem="qA1-N5-Rcm" secondAttribute="top" constant="-23" id="s4j-qI-qwE"/>
-                    <constraint firstItem="OUT-Oa-87W" firstAttribute="leading" secondItem="qA1-N5-Rcm" secondAttribute="leading" constant="68" id="t1X-pI-sHn"/>
                     <constraint firstItem="ZGw-zv-YuX" firstAttribute="leading" secondItem="Quc-KX-NQA" secondAttribute="leading" id="tmA-ao-pnM"/>
                     <constraint firstAttribute="trailingMargin" secondItem="jqR-km-ldL" secondAttribute="trailing" constant="10" id="uyx-Ge-PAR"/>
                 </constraints>
@@ -63,6 +67,7 @@
                 <outlet property="categoryColorBadgeView" destination="qA1-N5-Rcm" id="47X-Vu-Sq8"/>
                 <outlet property="dueDateTextLabel" destination="OUT-Oa-87W" id="dAS-ql-WXK"/>
                 <outlet property="dueOnTextLabel" destination="ZGw-zv-YuX" id="7G1-Rg-u7E"/>
+                <outlet property="taskCompletedButton" destination="jqR-km-ldL" id="YvX-S7-sUC"/>
             </connections>
             <point key="canvasLocation" x="333" y="412.5"/>
         </tableViewCell>

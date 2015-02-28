@@ -38,7 +38,8 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc]initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed)];
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: addAppointmentButton, settingsButton, nil];
-    
+    //Remove the invisiable cells
+    self.tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     UINib *ADAppointmentTableViewCellNib = [UINib nibWithNibName:@"ADAppointmentTableViewCell" bundle:nil];
     [self.tableView registerNib:ADAppointmentTableViewCellNib forCellReuseIdentifier:ADAppointmentTableViewCellIdentifier];
     
@@ -76,6 +77,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     cell.appointmentNameLabel.text = task.name;
     cell.dueDateTextLabel.text = [NSString stringWithFormat:@"%@",task.dueDate];
     cell.separatorInset = UIEdgeInsetsMake(0.0f, 15.0f, 0.0f, 15.0f);
+    cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
 

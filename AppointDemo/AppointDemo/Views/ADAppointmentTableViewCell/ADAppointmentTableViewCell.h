@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *dueOnTextLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dueDateTextLabel;
 @property (weak, nonatomic) IBOutlet UIView *categoryColorBadgeView;
+@property (weak, nonatomic) IBOutlet UIButton *taskCompletedButton;
 
 @end

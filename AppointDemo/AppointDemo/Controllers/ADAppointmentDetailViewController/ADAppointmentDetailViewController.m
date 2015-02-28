@@ -11,6 +11,7 @@
 @interface ADAppointmentDetailViewController ()
 @property (weak, nonatomic) IBOutlet UINavigationBar *customNavigationBar;
 @property (weak, nonatomic) IBOutlet UINavigationItem *customNavigationItem;
+@property (weak, nonatomic) IBOutlet UIDatePicker *UIDatePickerControl;
 
 @end
 
@@ -19,12 +20,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self.taskNotificationCheckbox setImage:[UIImage imageNamed:@"emptyRadioButton"] forState:UIControlStateNormal];
+    [self.taskNotificationCheckbox setImage:[UIImage imageNamed:@"filledRadioButton"] forState:UIControlStateSelected];
+    
     [self setupNavigationBar];
     [self setupView];
-    
-    self.tasknameTextField.text = [self.currentTask name];
-    self.categoryTextField.text = [self.currentTask category];
-    self.dueDateTextField.text = [NSString stringWithFormat:@"%@", [self.currentTask dueDate]];
     
 }
 
@@ -75,10 +75,19 @@
 }
 
 -(void)setupView{
+    
+    self.tasknameTextField.text = [self.currentTask name];
+    self.categoryTextField.text = [self.currentTask category];
+    self.dueDateTextField.text = [NSString stringWithFormat:@"%@", [self.currentTask dueDate]];
+    if ([[self.currentTask notifyTask] boolValue]) {
+        [self.taskNotificationCheckbox setSelected:YES];
+    }
+
     if (!self.isAddingTask) {
         self.tasknameTextField.enabled = NO;
         self.dueDateTextField.enabled = NO;
         self.categoryTextField.enabled = NO;
+        self.UIDatePickerControl.hidden = YES;
     }
 }
 #pragma BarButtonItem methods

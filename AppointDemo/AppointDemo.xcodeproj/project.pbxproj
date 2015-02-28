@@ -19,7 +19,6 @@
 		CDA4CCB61AA19225006ABE61 /* ADAppointmentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA4CCB51AA19225006ABE61 /* ADAppointmentTableViewController.m */; };
 		CDA4CCBB1AA1927F006ABE61 /* ADAppointmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA4CCB91AA1927F006ABE61 /* ADAppointmentTableViewCell.m */; };
 		CDA4CCBC1AA1927F006ABE61 /* ADAppointmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA4CCBA1AA1927F006ABE61 /* ADAppointmentTableViewCell.xib */; };
-		CDA4CCC21AA1AA72006ABE61 /* ADAddAppointmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA4CCC11AA1AA72006ABE61 /* ADAddAppointmentViewController.m */; };
 		CDA4CCC81AA1ACB3006ABE61 /* ADSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA4CCC71AA1ACB3006ABE61 /* ADSettingsViewController.m */; };
 		CDA4CCCB1AA1AFD6006ABE61 /* ADAppointmentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA4CCCA1AA1AFD6006ABE61 /* ADAppointmentDetailViewController.m */; };
 /* End PBXBuildFile section */
@@ -56,8 +55,6 @@
 		CDA4CCB81AA1927F006ABE61 /* ADAppointmentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADAppointmentTableViewCell.h; sourceTree = "<group>"; };
 		CDA4CCB91AA1927F006ABE61 /* ADAppointmentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADAppointmentTableViewCell.m; sourceTree = "<group>"; };
 		CDA4CCBA1AA1927F006ABE61 /* ADAppointmentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ADAppointmentTableViewCell.xib; sourceTree = "<group>"; };
-		CDA4CCC01AA1AA72006ABE61 /* ADAddAppointmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADAddAppointmentViewController.h; sourceTree = "<group>"; };
-		CDA4CCC11AA1AA72006ABE61 /* ADAddAppointmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADAddAppointmentViewController.m; sourceTree = "<group>"; };
 		CDA4CCC61AA1ACB3006ABE61 /* ADSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSettingsViewController.h; sourceTree = "<group>"; };
 		CDA4CCC71AA1ACB3006ABE61 /* ADSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADSettingsViewController.m; sourceTree = "<group>"; };
 		CDA4CCC91AA1AFD6006ABE61 /* ADAppointmentDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADAppointmentDetailViewController.h; sourceTree = "<group>"; };
@@ -150,7 +147,6 @@
 		CDA4CCB01AA191DD006ABE61 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				CDA4CCBD1AA1A9F1006ABE61 /* ADAddAppointmentViewController */,
 				CDA4CCBE1AA1A9F1006ABE61 /* ADAppointmentDetailViewController */,
 				CDA4CCBF1AA1A9F1006ABE61 /* ADSettingsViewController */,
 				CDA4CCB31AA1920D006ABE61 /* ADAppointmentTableViewController */,
@@ -190,15 +186,6 @@
 				CDA4CCBA1AA1927F006ABE61 /* ADAppointmentTableViewCell.xib */,
 			);
 			path = ADAppointmentTableViewCell;
-			sourceTree = "<group>";
-		};
-		CDA4CCBD1AA1A9F1006ABE61 /* ADAddAppointmentViewController */ = {
-			isa = PBXGroup;
-			children = (
-				CDA4CCC01AA1AA72006ABE61 /* ADAddAppointmentViewController.h */,
-				CDA4CCC11AA1AA72006ABE61 /* ADAddAppointmentViewController.m */,
-			);
-			path = ADAddAppointmentViewController;
 			sourceTree = "<group>";
 		};
 		CDA4CCBE1AA1A9F1006ABE61 /* ADAppointmentDetailViewController */ = {
@@ -326,7 +313,6 @@
 				CDA4CC901AA19142006ABE61 /* AppointDemo.xcdatamodeld in Sources */,
 				CDA4CCBB1AA1927F006ABE61 /* ADAppointmentTableViewCell.m in Sources */,
 				CDA4CC8D1AA19142006ABE61 /* AppDelegate.m in Sources */,
-				CDA4CCC21AA1AA72006ABE61 /* ADAddAppointmentViewController.m in Sources */,
 				CDA4CC931AA19142006ABE61 /* ViewController.m in Sources */,
 				CDA4CC8A1AA19142006ABE61 /* main.m in Sources */,
 				CDA4CCC81AA1ACB3006ABE61 /* ADSettingsViewController.m in Sources */,
