@@ -23,4 +23,11 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)markAsCompletedPressed:(id)sender {
+    if (self.taskCompletedButton.selected) {
+        [self.taskCompletedButton setSelected:NO];
+    }else {
+        [self.taskCompletedButton setSelected:YES];
+    }
+}
 @end

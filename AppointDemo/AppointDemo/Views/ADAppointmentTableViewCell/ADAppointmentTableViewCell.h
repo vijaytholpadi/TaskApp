@@ -14,5 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *dueDateTextLabel;
 @property (weak, nonatomic) IBOutlet UIView *categoryColorBadgeView;
 @property (weak, nonatomic) IBOutlet UIButton *taskCompletedButton;
+- (IBAction)markAsCompletedPressed:(id)sender;
 
 @end

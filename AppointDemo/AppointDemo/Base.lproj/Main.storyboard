@@ -68,11 +68,14 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCO-Nf-wCW">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCO-Nf-wCW">
                                 <rect key="frame" x="258" y="133.5" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                                <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="disableNotificationsButtonPressed:" destination="czG-l7-oJL" eventType="touchUpInside" id="Mey-2a-jZZ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajJ-a2-mEa">
                                 <rect key="frame" x="16" y="179.5" width="88" height="20.5"/>
@@ -124,6 +127,11 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
+                    <connections>
+                        <outlet property="addCategoriesTextField" destination="tGK-SH-3Im" id="o9M-4R-We4"/>
+                        <outlet property="disableAllNotificationsButton" destination="aCO-Nf-wCW" id="wZO-JT-bS9"/>
+                        <outlet property="sortTasksOptionTextField" destination="nIM-yt-ecz" id="FCP-9D-99x"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tyS-bm-SCx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -147,50 +155,62 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5wf-VI-jjI" userLabel="DueDateTextField">
-                                <rect key="frame" x="120" y="135" width="184" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHp-Gf-Hwc" userLabel="TasknameTextField">
+                                <rect key="frame" x="120" y="86" width="184" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5wf-VI-jjI" userLabel="DueDateTextField">
+                                <rect key="frame" x="120" y="280" width="184" height="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="dueDateLabelClicked:" destination="kD4-9P-UFZ" eventType="touchDown" id="vAW-pW-R0O"/>
+                                </connections>
+                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rya-Ed-K2I">
-                                <rect key="frame" x="16" y="182" width="75" height="21"/>
+                                <rect key="frame" x="16" y="128" width="75" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KRf-Fu-JDE" userLabel="CategoryTextField">
-                                <rect key="frame" x="120" y="182" width="184" height="30"/>
+                                <rect key="frame" x="120" y="124" width="184" height="30"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOm-AI-tRG">
-                                <rect key="frame" x="43" y="226" width="22" height="22"/>
-                                <state key="normal">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOm-AI-tRG">
+                                <rect key="frame" x="193" y="159" width="38" height="38"/>
+                                <state key="normal" image="emptyRadioButton">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="notifyTaskButtonPressed:" destination="kD4-9P-UFZ" eventType="touchUpInside" id="GLz-jE-CMs"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notify task" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clM-5R-1Sf">
-                                <rect key="frame" x="120" y="227" width="82" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOn-SM-AK8">
-                                <rect key="frame" x="16" y="135" width="77" height="21"/>
+                                <rect key="frame" x="13" y="167" width="82" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AIF-5T-9Mo">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="qol-BS-7FZ"/>
+                                </constraints>
                                 <items>
                                     <navigationItem id="RSX-K7-cUb"/>
                                 </items>
                             </navigationBar>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Ne-N4-8QV">
                                 <rect key="frame" x="0.0" y="318" width="320" height="162"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <date key="date" timeIntervalSinceReferenceDate="446811051.19845402">
                                     <!--2015-02-28 10:10:51 +0000-->
                                 </date>
@@ -199,17 +219,17 @@
                                 </date>
                                 <locale key="locale" localeIdentifier="en_US"/>
                             </datePicker>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHp-Gf-Hwc" userLabel="TasknameTextField">
-                                <rect key="frame" x="120" y="86" width="184" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOn-SM-AK8">
+                                <rect key="frame" x="13" y="289" width="77" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.031372549020000001" green="0.1137254902" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="aCo-0b-USP" firstAttribute="leading" secondItem="HeB-QI-2dq" secondAttribute="leadingMargin" id="6g2-Iq-ay1"/>
-                            <constraint firstItem="AIF-5T-9Mo" firstAttribute="top" secondItem="IoK-fK-E2t" secondAttribute="bottom" id="DIm-Vl-Ejd"/>
+                            <constraint firstItem="AIF-5T-9Mo" firstAttribute="top" secondItem="IoK-fK-E2t" secondAttribute="bottom" constant="-20" id="DIm-Vl-Ejd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AIF-5T-9Mo" secondAttribute="trailing" constant="-16" id="Hdw-kb-a4s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7Ne-N4-8QV" secondAttribute="trailing" constant="-16" id="X4a-Iq-mpJ"/>
                             <constraint firstItem="aCo-0b-USP" firstAttribute="top" secondItem="IoK-fK-E2t" secondAttribute="bottom" constant="70" id="YCP-By-cw9"/>
@@ -256,4 +276,7 @@
             <point key="canvasLocation" x="265" y="338"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="emptyRadioButton" width="38" height="38"/>
+    </resources>
 </document>

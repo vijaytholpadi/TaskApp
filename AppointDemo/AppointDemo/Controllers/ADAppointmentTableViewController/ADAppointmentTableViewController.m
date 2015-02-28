@@ -82,11 +82,12 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    //    if ([[[self.fetchedResultsController sections] objectAtIndex:section] isTaskCompleted]) {
-    return @"Completed tasks";
-    //    }else{
+    if ([[[self.fetchedResultsController sections] objectAtIndex:section] name] == 0) {
+        return @"Pending tasks";
+    }else if ([[[[self.fetchedResultsController sections] objectAtIndex:section] name] isEqual:@"1"]){
+        return @"Completed tasks";
+    }
     return @"Pending tasks";
-    //    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

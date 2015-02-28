@@ -11,7 +11,7 @@
 
 @protocol ADAppointmentDetailViewControllerDelegate;
 
-@interface ADAppointmentDetailViewController : UIViewController
+@interface ADAppointmentDetailViewController : UIViewController<UITextFieldDelegate>
 @property (nonatomic,assign) BOOL isAddingTask;
 @property (nonatomic,strong) Task *currentTask;
 @property (nonatomic,weak) id <ADAppointmentDetailViewControllerDelegate>delegate;
@@ -20,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *dueDateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *categoryTextField;
 @property (weak, nonatomic) IBOutlet UIButton *taskNotificationCheckbox;
+
+- (IBAction)notifyTaskButtonPressed:(id)sender;
+
 @end
 
 @protocol ADAppointmentDetailViewControllerDelegate <NSObject>

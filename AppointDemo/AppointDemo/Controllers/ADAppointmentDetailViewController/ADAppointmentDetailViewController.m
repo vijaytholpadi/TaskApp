@@ -79,6 +79,7 @@
     self.tasknameTextField.text = [self.currentTask name];
     self.categoryTextField.text = [self.currentTask category];
     self.dueDateTextField.text = [NSString stringWithFormat:@"%@", [self.currentTask dueDate]];
+    self.dueDateTextField.delegate = self;
     if ([[self.currentTask notifyTask] boolValue]) {
         [self.taskNotificationCheckbox setSelected:YES];
     }
@@ -126,5 +127,16 @@
     self.categoryTextField.enabled = YES;
     
     self.customNavigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonPressed)];
+}
+- (IBAction)dueDateLabelClicked:(id)sender {
+    [self.UIDatePickerControl setHidden:NO];
+    
+}
+- (IBAction)notifyTaskButtonPressed:(id)sender {
+    if (self.taskNotificationCheckbox.selected) {
+        [self.taskNotificationCheckbox setSelected:NO];
+    }else {
+        [self.taskNotificationCheckbox setSelected:YES];
+    }
 }
 @end
