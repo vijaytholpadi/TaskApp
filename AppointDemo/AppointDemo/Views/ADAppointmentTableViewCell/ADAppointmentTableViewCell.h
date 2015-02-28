@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ADAppointmentTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *appointmentNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dueOnTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dueDateTextLabel;
+@property (weak, nonatomic) IBOutlet UIView *categoryColorBadgeView;
 
 @end
