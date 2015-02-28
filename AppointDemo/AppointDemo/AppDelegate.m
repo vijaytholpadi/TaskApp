@@ -17,6 +17,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    ADAppointmentTableViewController *appointmentTableVC = [[navigationController viewControllers]objectAtIndex:0];
+    appointmentTableVC.managedObjectContext  = self.managedObjectContext;
     return YES;
 }
 

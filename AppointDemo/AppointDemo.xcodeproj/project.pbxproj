@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD11662F1AA1C47900F35F9D /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = CD11662E1AA1C47900F35F9D /* Task.m */; };
 		CDA4CC8A1AA19142006ABE61 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA4CC891AA19142006ABE61 /* main.m */; };
 		CDA4CC8D1AA19142006ABE61 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CDA4CC8C1AA19142006ABE61 /* AppDelegate.m */; };
 		CDA4CC901AA19142006ABE61 /* AppointDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CDA4CC8E1AA19142006ABE61 /* AppointDemo.xcdatamodeld */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CD11662D1AA1C47900F35F9D /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Task.h; path = Models/Task/Task.h; sourceTree = "<group>"; };
+		CD11662E1AA1C47900F35F9D /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Task.m; path = Models/Task/Task.m; sourceTree = "<group>"; };
 		CDA4CC841AA19142006ABE61 /* AppointDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppointDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDA4CC881AA19142006ABE61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDA4CC891AA19142006ABE61 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 				CDA4CC971AA19142006ABE61 /* Images.xcassets */,
 				CDA4CC991AA19142006ABE61 /* LaunchScreen.xib */,
 				CDA4CC8E1AA19142006ABE61 /* AppointDemo.xcdatamodeld */,
+				CD11662D1AA1C47900F35F9D /* Task.h */,
+				CD11662E1AA1C47900F35F9D /* Task.m */,
 				CDA4CC871AA19142006ABE61 /* Supporting Files */,
 			);
 			path = AppointDemo;
@@ -315,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD11662F1AA1C47900F35F9D /* Task.m in Sources */,
 				CDA4CCCB1AA1AFD6006ABE61 /* ADAppointmentDetailViewController.m in Sources */,
 				CDA4CCB61AA19225006ABE61 /* ADAppointmentTableViewController.m in Sources */,
 				CDA4CC901AA19142006ABE61 /* AppointDemo.xcdatamodeld in Sources */,
@@ -514,6 +520,7 @@
 				CDA4CCAC1AA19142006ABE61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CDA4CCAD1AA19142006ABE61 /* Build configuration list for PBXNativeTarget "AppointDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +529,7 @@
 				CDA4CCAF1AA19142006ABE61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

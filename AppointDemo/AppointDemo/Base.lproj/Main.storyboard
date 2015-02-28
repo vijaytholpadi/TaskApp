@@ -133,7 +133,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5wf-VI-jjI" userLabel="DueDateTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5wf-VI-jjI" userLabel="DueDateTextField">
                                 <rect key="frame" x="120" y="135" width="184" height="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -145,7 +145,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KRf-Fu-JDE" userLabel="CategoryTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KRf-Fu-JDE" userLabel="CategoryTextField">
                                 <rect key="frame" x="120" y="182" width="184" height="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -175,7 +175,13 @@
                                     <navigationItem id="RSX-K7-cUb"/>
                                 </items>
                             </navigationBar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHp-Gf-Hwc" userLabel="TasknameTextField">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Ne-N4-8QV">
+                                <rect key="frame" x="0.0" y="318" width="320" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="446811051.19845402">
+                                    <!--2015-02-28 10:10:51 +0000-->
+                                </date>
+                            </datePicker>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHp-Gf-Hwc" userLabel="TasknameTextField">
                                 <rect key="frame" x="120" y="86" width="184" height="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -187,7 +193,10 @@
                             <constraint firstItem="aCo-0b-USP" firstAttribute="leading" secondItem="HeB-QI-2dq" secondAttribute="leadingMargin" id="6g2-Iq-ay1"/>
                             <constraint firstItem="AIF-5T-9Mo" firstAttribute="top" secondItem="IoK-fK-E2t" secondAttribute="bottom" id="DIm-Vl-Ejd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AIF-5T-9Mo" secondAttribute="trailing" constant="-16" id="Hdw-kb-a4s"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7Ne-N4-8QV" secondAttribute="trailing" constant="-16" id="X4a-Iq-mpJ"/>
                             <constraint firstItem="aCo-0b-USP" firstAttribute="top" secondItem="IoK-fK-E2t" secondAttribute="bottom" constant="70" id="YCP-By-cw9"/>
+                            <constraint firstItem="7Ne-N4-8QV" firstAttribute="leading" secondItem="HeB-QI-2dq" secondAttribute="leadingMargin" constant="-16" id="aAd-2v-RMf"/>
+                            <constraint firstItem="biN-EX-cof" firstAttribute="top" secondItem="7Ne-N4-8QV" secondAttribute="bottom" id="nTG-HI-MrG"/>
                             <constraint firstItem="AIF-5T-9Mo" firstAttribute="leading" secondItem="HeB-QI-2dq" secondAttribute="leadingMargin" constant="-16" id="spW-Qz-Vk8"/>
                         </constraints>
                     </view>
@@ -195,13 +204,17 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
                     <connections>
+                        <outlet property="categoryTextField" destination="KRf-Fu-JDE" id="VUq-YC-lPu"/>
                         <outlet property="customNavigationBar" destination="AIF-5T-9Mo" id="jgq-K4-uU9"/>
                         <outlet property="customNavigationItem" destination="RSX-K7-cUb" id="OrD-fd-itV"/>
+                        <outlet property="dueDateTextField" destination="5wf-VI-jjI" id="aHf-5C-MoO"/>
+                        <outlet property="taskNotificationCheckbox" destination="dOm-AI-tRG" id="2QG-9f-CGx"/>
+                        <outlet property="tasknameTextField" destination="fHp-Gf-Hwc" id="Si0-j0-gjw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4aH-mz-JzL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1002" y="626"/>
+            <point key="canvasLocation" x="1019" y="625"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="of3-NR-Hg6">

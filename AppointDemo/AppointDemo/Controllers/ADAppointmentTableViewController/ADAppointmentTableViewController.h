@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+#import "ADAppointmentDetailViewController.h"
 
-@interface ADAppointmentTableViewController : UITableViewController
-
+@interface ADAppointmentTableViewController : UITableViewController<ADAppointmentDetailViewControllerDelegate,NSFetchedResultsControllerDelegate>
+@property (nonatomic,strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
 @end

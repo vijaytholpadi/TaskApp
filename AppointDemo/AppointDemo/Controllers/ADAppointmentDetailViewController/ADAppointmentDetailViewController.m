@@ -20,6 +20,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupNavigationBar];
+    [self setupView];
+    
+    self.tasknameTextField.text = [self.currentTask name];
+    self.categoryTextField.text = [self.currentTask category];
+    self.dueDateTextField.text = [NSString stringWithFormat:@"%@", [self.currentTask dueDate]];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:YES];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,19 +74,48 @@
     self.customNavigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightSideButton, nil];
 }
 
+-(void)setupView{
+    if (!self.isAddingTask) {
+        self.tasknameTextField.enabled = NO;
+        self.dueDateTextField.enabled = NO;
+        self.categoryTextField.enabled = NO;
+    }
+}
 #pragma BarButtonItem methods
 -(void)cancelButtonPressed {
+    [self.delegate addTaskDidCancelTask:self.currentTask];
 }
 
 -(void)saveButtonPressed {
+    [self.currentTask setName:self.tasknameTextField.text];
+    [self.currentTask setCategory:self.categoryTextField.text];
+    //    [self.currentTask setIsTaskCompleted:0];
+    //    [self.currentTask setNotifyTask:0];
+    //    [self.currentTask setCategoryColor:@""];
     
+    NSString *dateString = self.dueDateTextField.text;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    NSDate *dateFromString = [[NSDate alloc] init];
+    dateFromString = [dateFormatter dateFromString:dateString];
+    [self.currentTask setDueDate:dateFromString];
+    
+    if (self.isAddingTask) {
+        [self.delegate addTaskDidSaveOnEdit:NO];
+    }else{
+        [self.delegate addTaskDidSaveOnEdit:YES];
+    }
 }
 
 -(void)backButtonPressed {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)editButtonPressed {
+    self.tasknameTextField.enabled = YES;
+    self.dueDateTextField.enabled = YES;
+    self.categoryTextField.enabled = YES;
     
+    self.customNavigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonPressed)];
 }
 @end
