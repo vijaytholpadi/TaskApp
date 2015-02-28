@@ -37,7 +37,7 @@
         <!--Settings View Controller-->
         <scene sceneID="xMv-Te-n4X">
             <objects>
-                <viewController id="czG-l7-oJL" customClass="ADSettingsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ADSettingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="czG-l7-oJL" customClass="ADSettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IUA-eL-uWg"/>
                         <viewControllerLayoutGuide type="bottom" id="jpJ-h3-viy"/>
@@ -98,7 +98,7 @@
         <!--Add Appointment View Controller-->
         <scene sceneID="ETX-jq-Bhe">
             <objects>
-                <viewController id="ZF4-9M-hIE" customClass="ADAddAppointmentViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ADAddAppointmentViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZF4-9M-hIE" customClass="ADAddAppointmentViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ij9-SR-6wp"/>
                         <viewControllerLayoutGuide type="bottom" id="IuQ-7c-En0"/>
@@ -118,7 +118,7 @@
         <!--Appointment Detail View Controller-->
         <scene sceneID="ddc-cF-fJl">
             <objects>
-                <viewController id="kD4-9P-UFZ" customClass="ADAppointmentDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ADAppointmentDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kD4-9P-UFZ" customClass="ADAppointmentDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IoK-fK-E2t"/>
                         <viewControllerLayoutGuide type="bottom" id="biN-EX-cof"/>

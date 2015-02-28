@@ -7,6 +7,8 @@
 //
 
 #import "ADAppointmentTableViewController.h"
+#import "ADSettingsViewController.h"
+#import "ADAppointmentDetailViewController.h"
 
 static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableViewCell";
 
@@ -112,10 +114,12 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 
 #pragma navigation bar button item methods
 -(void)addAppointmentButtonPressed {
-    
+    ADAppointmentDetailViewController *AddAppointmentVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ADAppointmentDetailViewController"];
+    [self presentViewController:AddAppointmentVC animated:YES completion:nil];
 }
 
 -(void)settingsButtonPressed {
-    
+    ADSettingsViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ADSettingsViewController"];
+    [self.navigationController pushViewController:settingsVC animated:YES];
 }
 @end
