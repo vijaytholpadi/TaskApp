@@ -17,11 +17,13 @@
 
 }
 
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
+
 
 - (IBAction)markTaskAsCompletedPressed:(id)sender {
     if (self.taskCompletedButton.selected) {
@@ -32,4 +34,6 @@
     [self.delegate didchangeTaskCompletionStatusAtCell:self toComplete:self.taskCompletedButton.selected];
     
 }
+
+
 @end

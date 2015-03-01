@@ -12,6 +12,7 @@
 
 
 @interface ADAppointmentTableViewCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *appointmentNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dueOnTextLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dueDateTextLabel;

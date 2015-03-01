@@ -13,6 +13,7 @@
 
 #import "Task.h"
 
+
 static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableViewCell";
 
 @interface ADAppointmentTableViewController ()<ADAppointmentTableViewCellDelegate>
@@ -20,14 +21,16 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 @end
 
 @implementation ADAppointmentTableViewController
+
 @synthesize fetchedResultsController = _fetchedResultsController;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"Task App";
     
     UIBarButtonItem *addAppointmentButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Add"] style:UIBarButtonItemStylePlain target:self action:@selector(addAppointmentButtonPressed)];
-
+    
     
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Settings"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed)];
     
@@ -44,13 +47,12 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     }
 }
 
--(void)viewWillAppear:(BOOL)animated{
 
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 #pragma mark - Table view data source
 
@@ -58,6 +60,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     // Return the number of sections.
     return [[self.fetchedResultsController sections]count];
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
@@ -77,7 +80,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     NSString *prettyVersion = [dateFormat stringFromDate:task.dueDate];
     cell.dueDateTextLabel.text = prettyVersion;
-
+    
     [cell.taskCompletedButton setSelected:task.isTaskCompleted.boolValue];
     cell.separatorInset = UIEdgeInsetsMake(0.0f, 15.0f, 0.0f, 15.0f);
     
@@ -85,24 +88,27 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
         SEL taskColor = NSSelectorFromString(task.categoryColor);
         [cell.categoryColorBadgeView setBackgroundColor:[UIColor performSelector:taskColor]];
     }
-
+    
     cell.backgroundColor = [UIColor clearColor];
     cell.delegate = self;
     return cell;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if ([[[[self.fetchedResultsController sections] objectAtIndex:section] name] isEqualToString:@"0"]) {
         return @"Pending tasks";
-    }else if ([[[[self.fetchedResultsController sections] objectAtIndex:section] name] isEqualToString:@"1"]){
+    } else if ([[[[self.fetchedResultsController sections] objectAtIndex:section] name] isEqualToString:@"1"]) {
         return @"Completed tasks";
     }
     return @"Pending tasks";
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 100.0f;
 }
+
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -111,8 +117,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 }
 
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Task *currentTask = (Task*)[self.fetchedResultsController objectAtIndexPath:indexPath];
     
     ADAppointmentDetailViewController *detailVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ADAppointmentDetailViewController"];
@@ -123,6 +128,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     [self.navigationController pushViewController:detailVC animated:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -137,6 +143,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
         }
     }
 }
+
 
 /*
  // Override to support rearranging the table view.
@@ -163,12 +170,12 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
  */
 
 #pragma mark Fetched Results Controller section
--(NSFetchedResultsController *)fetchedResultsController{
+- (NSFetchedResultsController *)fetchedResultsController {
     if (_fetchedResultsController != nil) {
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:[[NSUserDefaults standardUserDefaults]stringForKey:@"SelectedSortDescriptor"]
                                                                        ascending:YES];
         [_fetchedResultsController.fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
-
+        
         return _fetchedResultsController;
     }
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -190,16 +197,18 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     return _fetchedResultsController;
 }
 
--(void)controllerWillChangeContent:(NSFetchedResultsController *)controller{
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
 }
 
--(void)controllerDidChangeContent:(NSFetchedResultsController *)controller{
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
 }
 
--(void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type{
-    
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     switch (type) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
@@ -211,14 +220,14 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     
 }
 
--(void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath{
-    
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     switch (type) {
-        case NSFetchedResultsChangeInsert:{
+        case NSFetchedResultsChangeInsert: {
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
-        case NSFetchedResultsChangeDelete:{
+        case NSFetchedResultsChangeDelete: {
             [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
         }
@@ -245,8 +254,9 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     }
 }
 
+
 #pragma mark navigation bar button item methods
--(void)addAppointmentButtonPressed {
+- (void)addAppointmentButtonPressed {
     ADAppointmentDetailViewController *AddAppointmentVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ADAppointmentDetailViewController"];
     AddAppointmentVC.isAddingTask = YES;
     AddAppointmentVC.delegate = self;
@@ -255,13 +265,15 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     [self presentViewController:AddAppointmentVC animated:YES completion:nil];
 }
 
--(void)settingsButtonPressed {
+
+- (void)settingsButtonPressed {
     ADSettingsViewController *settingsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ADSettingsViewController"];
     [self.navigationController pushViewController:settingsVC animated:YES];
 }
 
+
 #pragma mark ADAppointmentDetailViewControllerDelegate methods
--(void)addTaskDidSaveOnEdit:(BOOL)editingMode{
+- (void)addTaskDidSaveOnEdit:(BOOL)editingMode {
     NSError *error;
     if (![[self managedObjectContext]save:&error]) {
         NSLog(@"%@",error);
@@ -273,19 +285,27 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     }
 }
 
--(void)addTaskDidCancelTask:(Task *)taskToCancel{
-    [self.managedObjectContext deleteObject:taskToCancel];
+
+-(void)addTaskDidCancelTask:(Task*)taskToCancel editAttempted:(BOOL)editAttempted {
+    if (editAttempted) {
+        [self.managedObjectContext refreshObject:taskToCancel mergeChanges:NO];
+    } else {
+        [self.managedObjectContext deleteObject:taskToCancel];
+    }
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)didchangeTaskCompletionStatusAtCell:(ADAppointmentTableViewCell *)cell toComplete:(BOOL)completionStatus{
+
+- (void)didchangeTaskCompletionStatusAtCell:(ADAppointmentTableViewCell *)cell toComplete:(BOOL)completionStatus {
     Task *targetTask = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:cell]];
     targetTask.isTaskCompleted = [NSNumber numberWithBool:completionStatus];
-   
+    
     NSError *error;
     if (![[self managedObjectContext]save:&error]) {
         NSLog(@"%@",error);
     }
 }
+
+
 @end

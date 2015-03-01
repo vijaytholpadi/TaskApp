@@ -8,7 +8,9 @@
 
 #import "ADSettingsViewController.h"
 
+
 @interface ADSettingsViewController ()
+
 @property (weak, nonatomic) IBOutlet UIButton *sortDescriptorsButton;
 @property (weak, nonatomic) IBOutlet UIButton *disableAllNotificationsButton;
 @property (weak, nonatomic) IBOutlet UITextField *addCategoriesTextField;
@@ -41,6 +43,7 @@
 //    [self.sortDescriptorsButton setTextColor:[UIColor whiteColor] forState:UIControlStateSelected];
 }
 
+
 - (void)initializeViewValues {
     if ([[[NSUserDefaults standardUserDefaults]stringForKey:@"SelectedSortDescriptor"] isEqualToString:@"name"]) {
         [self.sortDescriptorsButton.titleLabel setText:@"Name"];
@@ -49,26 +52,31 @@
     }
 }
 
--(void)viewDidAppear:(BOOL)animated{
+
+- (void)viewDidAppear:(BOOL)animated {
     [self initializeViewValues];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark UITableView Methods
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.categoriesDictionary count];
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc]init];
     
     NSArray *keysArray = [self.categoriesDictionary allKeys];
@@ -83,13 +91,25 @@
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIActionSheet *colorActionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose a color" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"RedColor", @"GreenColor", @"Bluecolor", nil];
+    colorActionSheet.tag = 2;
+    colorActionSheet.title = [self.categoriesTableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    [colorActionSheet showInView:self.view];
+    
+    [self.categoriesTableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 20.0f;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"Categories";
 }
+
+
 /*
  #pragma mark - Navigation
  
@@ -101,10 +121,11 @@
  */
 
 #pragma mark UITextField delegate methods
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self.addCategoriesTextField resignFirstResponder];
     return YES;
 }
+
 
 - (IBAction)categoryTextFieldEditingDidEnd:(id)sender {
     if (self.addCategoriesTextField.text.length != 0) {
@@ -132,6 +153,7 @@
     }
 }
 
+
 - (IBAction)sortDescriptorButtonPressed:(id)sender {
     UIActionSheet *sortDescriptorActionSheet = [[UIActionSheet alloc]initWithTitle:@"Sort by" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Due Date", @"Name", nil];
     sortDescriptorActionSheet.tag = 0;
@@ -140,34 +162,47 @@
 
 
 #pragma mark UIActionSheetDelegate methods
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (actionSheet.tag == 0) {
         NSString *sortDescriptor;
         if (buttonIndex == 0) {
             sortDescriptor = @"dueDate";
             [self.sortDescriptorsButton.titleLabel setText:@"Due Date"];
-        }else if (buttonIndex == 1){
+        }else if (buttonIndex == 1) {
             sortDescriptor = @"name";
             [self.sortDescriptorsButton.titleLabel setText:@"Name"];
         }
         [[NSUserDefaults standardUserDefaults]
          setObject:sortDescriptor forKey:@"SelectedSortDescriptor"];
    
-    }else if(actionSheet.tag == 1){
+    }else if(actionSheet.tag == 1) {
         NSString *colorString;
         if (buttonIndex == 0) {
             colorString = @"redColor";
-        }else if(buttonIndex == 1){
+        }else if(buttonIndex == 1) {
             colorString = @"greenColor";
-        }else if(buttonIndex == 2){
+        }else if(buttonIndex == 2) {
             colorString = @"blueColor";
         }
         
         [self.categoriesDictionary setObject:colorString forKey:self.addCategoriesTextField.text];
         [[NSUserDefaults standardUserDefaults] setObject:self.categoriesDictionary forKey:@"TaskCategories"];
+    }else if(actionSheet.tag == 2) {
+        NSString *colorString;
+        if (buttonIndex == 0) {
+            colorString = @"redColor";
+        }else if(buttonIndex == 1) {
+            colorString = @"greenColor";
+        }else if(buttonIndex == 2) {
+            colorString = @"blueColor";
+        }
+        
+        [self.categoriesDictionary setObject:colorString forKey:actionSheet.title];
+        [[NSUserDefaults standardUserDefaults] setObject:self.categoriesDictionary forKey:@"TaskCategories"];
     }
     [self initializeViewValues];
     [self.categoriesTableView reloadData];
 }
+
 
 @end

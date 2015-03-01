@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Task.h"
 
+
 @protocol ADAppointmentDetailViewControllerDelegate;
 
+
 @interface ADAppointmentDetailViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate>
+
 @property (nonatomic,assign) BOOL isAddingTask;
 @property (nonatomic,strong) Task *currentTask;
 @property (nonatomic,weak) id <ADAppointmentDetailViewControllerDelegate>delegate;
@@ -27,6 +30,6 @@
 @protocol ADAppointmentDetailViewControllerDelegate <NSObject>
 
 -(void)addTaskDidSaveOnEdit:(BOOL)editingMode;
--(void)addTaskDidCancelTask:(Task*)taskToCancel;
+-(void)addTaskDidCancelTask:(Task*)taskToCancel editAttempted:(BOOL)editAttempted;
 
 @end

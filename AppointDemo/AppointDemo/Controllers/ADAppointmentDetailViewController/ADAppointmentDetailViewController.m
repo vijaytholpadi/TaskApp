@@ -8,7 +8,9 @@
 
 #import "ADAppointmentDetailViewController.h"
 
+
 @interface ADAppointmentDetailViewController ()
+
 @property (weak, nonatomic) IBOutlet UINavigationBar *customNavigationBar;
 @property (weak, nonatomic) IBOutlet UINavigationItem *customNavigationItem;
 @property (weak, nonatomic) IBOutlet UIDatePicker *UIDatePickerControl;
@@ -16,6 +18,7 @@
 @property (nonatomic,strong)NSMutableDictionary *categoriesDictionary;
 
 @property (strong, nonatomic) NSArray *categoryArray;
+
 @end
 
 @implementation ADAppointmentDetailViewController
@@ -31,20 +34,24 @@
     
 }
 
--(void)viewWillAppear:(BOOL)animated {
+
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
 }
 
--(void)viewWillDisappear:(BOOL)animated {
+
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar setHidden:NO];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
  #pragma mark - Navigation
@@ -56,8 +63,7 @@
  }
  */
 
--(void)setupNavigationBar{
-    
+- (void)setupNavigationBar {
     UIBarButtonItem *leftSideButton;
     UIBarButtonItem *rightSideButton;
     
@@ -77,8 +83,8 @@
     self.customNavigationItem.rightBarButtonItems = [NSArray arrayWithObjects:rightSideButton, nil];
 }
 
--(void)setupView{
-    
+
+- (void)setupView {
     self.tasknameTextField.text = [self.currentTask name];
     self.categoryTextField.text = [self.currentTask category];
     [self.categoryTextField setDelegate:self];
@@ -99,13 +105,15 @@
         self.UIDatePickerControl.alpha = 0.4f;
     }
 }
+
+
 #pragma BarButtonItem methods
--(void)cancelButtonPressed {
-    [self.delegate addTaskDidCancelTask:self.currentTask];
+- (void)cancelButtonPressed {
+    [self.delegate addTaskDidCancelTask:self.currentTask editAttempted:NO];
 }
 
--(void)saveButtonPressed {
-    
+
+- (void)saveButtonPressed {
     if (([self.tasknameTextField.text length] != 0) && ([self.categoryTextField.text length] != 0)) {
         [self.currentTask setName:self.tasknameTextField.text];
         [self.currentTask setCategory:self.categoryTextField.text];
@@ -132,7 +140,6 @@
                 localNotification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@%@%lu",date, [self.tasknameTextField.text substringToIndex:([self.tasknameTextField.text length] -1)], (unsigned long)[self.tasknameTextField.text length]], @"uniqueSig", nil];
                 [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
                 
-                
                 NSMutableArray *localNotificationBackupArray = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"localNotificationBackup"]];
                  NSData *data = [NSKeyedArchiver archivedDataWithRootObject:localNotification];
                 [localNotificationBackupArray addObject:data];
@@ -140,24 +147,26 @@
             }
         }
 #warning Need to handle a situation where the user might click on back after clicking on save.
-        
         if (self.isAddingTask) {
             [self.delegate addTaskDidSaveOnEdit:NO];
-        }else{
+        } else {
             [self.delegate addTaskDidSaveOnEdit:YES];
         }
-    }else{
+    } else {
         
         UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill in all the details before saving your task" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [errorAlert show];
     }
 }
 
--(void)backButtonPressed {
+
+- (void)backButtonPressed {
     [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate addTaskDidCancelTask:self.currentTask editAttempted:YES];
 }
 
--(void)editButtonPressed {
+
+- (void)editButtonPressed {
     self.tasknameTextField.enabled = YES;
     self.categoryTextField.enabled = YES;
     [self.taskNotificationCheckbox setUserInteractionEnabled:YES];
@@ -172,8 +181,7 @@
     for (int k=0;k<[Arr count];k++) {
         UILocalNotification *not=[Arr objectAtIndex:k];
         NSString *uniqueString=[not.userInfo valueForKey:@"uniqueSig"];
-        if([uniqueString isEqualToString:uniqueID])
-        {
+        if([uniqueString isEqualToString:uniqueID]) {
             [[UIApplication sharedApplication] cancelLocalNotification:not];
             [[[NSUserDefaults standardUserDefaults] objectForKey:@"localNotificationBackup"] removeObject:not];
             [self.currentTask setNotifyTask:[NSNumber numberWithBool:NO]];
@@ -181,6 +189,7 @@
         }
     }
 }
+
 
 - (IBAction)notifyTaskButtonPressed:(id)sender {
     if (self.taskNotificationCheckbox.selected) {
@@ -190,8 +199,8 @@
     }
 }
 
+
 - (IBAction)categoryTextFieldEditingDidBegin:(id)sender {
-    
     UIActionSheet *categoryActionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose a category" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
     
     self.categoryArray = [NSArray arrayWithArray:[[[NSUserDefaults standardUserDefaults]objectForKey:@"TaskCategories"] allKeys]];
@@ -206,19 +215,21 @@
     
 }
 
--(void)textFieldDidEndEditing:(UITextField *)textField{
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
     [self.categoryTextField resignFirstResponder];
 }
 
+
 #pragma mark UIActionSheetDelegate methods
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     [self.categoryTextField setText:[self.categoryArray objectAtIndex:buttonIndex]];
     
     //Not working when called on category textField for some reason
     [self.tasknameTextField becomeFirstResponder];
     [self.tasknameTextField resignFirstResponder];
 }
+
 
 @end
