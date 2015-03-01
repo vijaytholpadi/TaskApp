@@ -139,7 +139,7 @@
                 localNotification.alertBody = self.tasknameTextField.text;
                 localNotification.soundName = UILocalNotificationDefaultSoundName;
                 
-                localNotification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@%@%lu",date, [self.tasknameTextField.text substringToIndex:([self.tasknameTextField.text length] -1)], (unsigned long)[self.tasknameTextField.text length]], @"uniqueSig", nil];
+                localNotification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@%@%lu",date, [self.tasknameTextField.text substringToIndex:([self.tasknameTextField.text length] -1)], (unsigned long)[self.tasknameTextField.text length]], @"uniqueSig", self.tasknameTextField.text, @"alertText", nil];
                 [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
                 
                 NSMutableArray *localNotificationBackupArray = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"localNotificationBackup"]];

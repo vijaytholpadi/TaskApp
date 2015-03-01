@@ -23,7 +23,7 @@
     ADAppointmentTableViewController *appointmentTableVC = [[navigationController viewControllers]objectAtIndex:0];
     appointmentTableVC.managedObjectContext  = self.managedObjectContext;
     
-    
+    //Requesting for push notification permissions
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert ) categories:nil]];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
@@ -33,6 +33,7 @@
          ( UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
 
+    //Setting all the app specific settings required
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"TaskCategories"] count] == 0) {
 
         NSMutableDictionary *categoriesDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"redColor", @"Family", @"blueColor", @"Office", @"purpleColor", @"Personal", @"grayColor", @"Misc", nil];
@@ -48,6 +49,11 @@
         [[NSUserDefaults standardUserDefaults] setObject:localNotificationArray forKey:@"localNotificationBackup"];
     }
     
+    
+    if ([launchOptions objectForKey:@"UIApplicationLaunchOptionsLocalNotificationKey"] != nil) {
+        NSDictionary *userInfo = [launchOptions objectForKey:@"UIApplicationLaunchOptionsLocalNotificationKey"];
+        [self handleNotificationUserObject:userInfo];
+    }
     return YES;
 }
 
@@ -80,9 +86,21 @@
     [self saveContext];
 }
 
+#pragma mark - UILocalNotifications methods
+- (void)application:(UIApplication *)application
+didReceiveLocalNotification:(UILocalNotification *)notification {
+    [self handleNotificationUserObject:notification.userInfo];
+
+}
+
+-(void)handleNotificationUserObject:(NSDictionary*)userInfo{
+    
+    NSString *alertText = [userInfo objectForKey:@"alertText"];
+    UIAlertView *notificationAlert = [[UIAlertView alloc]initWithTitle:@"Reminder" message:alertText delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [notificationAlert show];
+}
 
 #pragma mark - Core Data stack
-
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
