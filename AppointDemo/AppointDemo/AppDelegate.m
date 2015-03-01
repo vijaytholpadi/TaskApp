@@ -32,18 +32,19 @@
          ( UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
     }
 
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"TaskCategories"] == nil) {
-        NSDictionary *categoryDictionary1 = [NSDictionary dictionaryWithObject:@"RedColor" forKey:@"Family"];
-        NSDictionary *categoryDictionary2 = [NSDictionary dictionaryWithObject:@"BlueColor" forKey:@"Office"];
-        NSDictionary *categoryDictionary3 = [NSDictionary dictionaryWithObject:@"purpleColor" forKey:@"Personal"];
-        NSDictionary *categoryDictionary4 = [NSDictionary dictionaryWithObject:@"grayColor" forKey:@"Misc"];
-        NSArray *categoryArray = [NSArray arrayWithObjects: categoryDictionary1, categoryDictionary2, categoryDictionary3, categoryDictionary4, nil];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"TaskCategories"] count] == 0) {
+//        NSDictionary *categoryDictionary1 = [NSDictionary dictionaryWithObject:@"RedColor" forKey:@"Family"];
+//        NSDictionary *categoryDictionary2 = [NSDictionary dictionaryWithObject:@"BlueColor" forKey:@"Office"];
+//        NSDictionary *categoryDictionary3 = [NSDictionary dictionaryWithObject:@"purpleColor" forKey:@"Personal"];
+//        NSDictionary *categoryDictionary4 = [NSDictionary dictionaryWithObject:@"grayColor" forKey:@"Misc"];
+//        NSArray *categoryArray = [NSArray arrayWithObjects: categoryDictionary1, categoryDictionary2, categoryDictionary3, categoryDictionary4, nil];
 
-        [[NSUserDefaults standardUserDefaults] setObject:categoryArray forKey:@"TaskCategories"];
+        NSMutableDictionary *categoriesDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"redColor", @"Family", @"blueColor", @"Office", @"purpleColor", @"Personal", @"grayColor", @"Misc", nil];
+        [[NSUserDefaults standardUserDefaults] setObject:categoriesDictionary forKey:@"TaskCategories"];
     }
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedSortDescriptor"] == nil) {
-        [[NSUserDefaults standardUserDefaults] setObject:@"Date" forKey:@"SelectedSortDescriptor"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"dueDate" forKey:@"SelectedSortDescriptor"];
     }
     
     return YES;
