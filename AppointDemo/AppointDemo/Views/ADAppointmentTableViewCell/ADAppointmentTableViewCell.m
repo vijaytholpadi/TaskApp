@@ -12,8 +12,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    [self.taskCompletedButton setImage:[UIImage imageNamed:@"emptyRadioButton"] forState:UIControlStateNormal];
-    [self.taskCompletedButton setImage:[UIImage imageNamed:@"filledRadioButton"] forState:UIControlStateSelected];
+    [self.taskCompletedButton setBackgroundImage:[UIImage imageNamed:@"emptyRadioButton"] forState:UIControlStateNormal];
+    [self.taskCompletedButton setBackgroundImage:[UIImage imageNamed:@"filledRadioButton"] forState:UIControlStateSelected];
 
 }
 

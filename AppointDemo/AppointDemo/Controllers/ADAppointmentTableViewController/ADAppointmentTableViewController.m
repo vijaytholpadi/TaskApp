@@ -24,18 +24,12 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.title = @"Task App";
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UIBarButtonItem *addAppointmentButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Add"] style:UIBarButtonItemStylePlain target:self action:@selector(addAppointmentButtonPressed)];
+
     
-    //    self.tableView.delegate = self;
-    //    self.tableView.dataSource = self;
-    
-    UIBarButtonItem *addAppointmentButton = [[UIBarButtonItem alloc]initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addAppointmentButtonPressed)];
-    
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc]initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed)];
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Settings"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonPressed)];
     
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: addAppointmentButton, settingsButton, nil];
     //Remove the invisiable cells
@@ -84,17 +78,23 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     NSString *prettyVersion = [dateFormat stringFromDate:task.dueDate];
     cell.dueDateTextLabel.text = prettyVersion;
 
-//    [cell.taskCompletedButton setSelected:[NSNumber numberWithBool:task.isTaskCompleted]];
+    [cell.taskCompletedButton setSelected:task.isTaskCompleted.boolValue];
     cell.separatorInset = UIEdgeInsetsMake(0.0f, 15.0f, 0.0f, 15.0f);
+    
+    if (task.categoryColor != nil) {
+        SEL taskColor = NSSelectorFromString(task.categoryColor);
+        [cell.categoryColorBadgeView setBackgroundColor:[UIColor performSelector:taskColor]];
+    }
+
     cell.backgroundColor = [UIColor clearColor];
     cell.delegate = self;
     return cell;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    if ([[[self.fetchedResultsController sections] objectAtIndex:section] name] == 0) {
+    if ([[[[self.fetchedResultsController sections] objectAtIndex:section] name] isEqualToString:@"0"]) {
         return @"Pending tasks";
-    }else if ([[[[self.fetchedResultsController sections] objectAtIndex:section] name] isEqual:@"1"]){
+    }else if ([[[[self.fetchedResultsController sections] objectAtIndex:section] name] isEqualToString:@"1"]){
         return @"Completed tasks";
     }
     return @"Pending tasks";
@@ -226,6 +226,11 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
             Task *changedTask = [self.fetchedResultsController objectAtIndexPath:indexPath];
             ADAppointmentTableViewCell *cell = (ADAppointmentTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
             cell.appointmentNameLabel.text = changedTask.name;
+            
+            if (changedTask.categoryColor != nil) {
+                SEL taskColor = NSSelectorFromString(changedTask.categoryColor);
+                [cell.categoryColorBadgeView setBackgroundColor:[UIColor performSelector:taskColor]];
+            }
             
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setDateFormat:@"yyyy-MM-dd"];

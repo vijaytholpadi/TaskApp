@@ -14,24 +14,29 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quc-KX-NQA" userLabel="AppointmentNameLabel">
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Quc-KX-NQA" userLabel="AppointmentNameLabel">
+                        <rect key="frame" x="18" y="8" width="300" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="JHz-JN-I98"/>
+                            <constraint firstAttribute="width" constant="300" id="i6l-DY-ykL"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due on:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGw-zv-YuX">
-                        <rect key="frame" x="8" y="18" width="60" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="18" y="38" width="53.5" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUT-Oa-87W" userLabel="DueDateLabel">
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qA1-N5-Rcm" userLabel="CategoryColorBadge">
-                        <rect key="frame" x="8" y="50" width="20" height="20"/>
+                        <rect key="frame" x="18" y="50" width="20" height="20"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="b8y-Uw-bMv"/>
@@ -44,6 +49,7 @@
                             <constraint firstAttribute="height" constant="40" id="WLP-Dl-ZeY"/>
                             <constraint firstAttribute="width" constant="40" id="yWJ-IQ-0Hu"/>
                         </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <state key="normal">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -53,7 +59,7 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Quc-KX-NQA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="4DQ-DE-i2p"/>
+                    <constraint firstItem="Quc-KX-NQA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="4DQ-DE-i2p"/>
                     <constraint firstItem="Quc-KX-NQA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="LYA-cO-BNp"/>
                     <constraint firstItem="ZGw-zv-YuX" firstAttribute="top" secondItem="Quc-KX-NQA" secondAttribute="bottom" constant="10" id="Mum-gu-dR1"/>
                     <constraint firstAttribute="centerY" secondItem="jqR-km-ldL" secondAttribute="centerY" constant="-3.75" id="PYa-zQ-jEw"/>

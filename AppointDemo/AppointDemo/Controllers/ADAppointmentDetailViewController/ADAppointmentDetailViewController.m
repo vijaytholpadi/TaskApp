@@ -13,6 +13,9 @@
 @property (weak, nonatomic) IBOutlet UINavigationItem *customNavigationItem;
 @property (weak, nonatomic) IBOutlet UIDatePicker *UIDatePickerControl;
 
+@property (nonatomic,strong)NSMutableDictionary *categoriesDictionary;
+
+@property (strong, nonatomic) NSArray *categoryArray;
 @end
 
 @implementation ADAppointmentDetailViewController
@@ -20,8 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.taskNotificationCheckbox setImage:[UIImage imageNamed:@"emptyRadioButton"] forState:UIControlStateNormal];
-    [self.taskNotificationCheckbox setImage:[UIImage imageNamed:@"filledRadioButton"] forState:UIControlStateSelected];
+    [self.taskNotificationCheckbox setBackgroundImage:[UIImage imageNamed:@"emptyRadioButton"] forState:UIControlStateNormal];
+    [self.taskNotificationCheckbox setBackgroundImage:[UIImage imageNamed:@"filledRadioButton"] forState:UIControlStateSelected];
     
     [self setupNavigationBar];
     [self setupView];
@@ -78,15 +81,18 @@
     
     self.tasknameTextField.text = [self.currentTask name];
     self.categoryTextField.text = [self.currentTask category];
+    [self.categoryTextField setDelegate:self];
+    
     NSDate *date = [NSDate date];
     self.UIDatePickerControl.date = date;
     if ([[self.currentTask notifyTask] boolValue]) {
         [self.taskNotificationCheckbox setSelected:YES];
     }
-
+    
     if (!self.isAddingTask) {
         self.tasknameTextField.enabled = NO;
         self.categoryTextField.enabled = NO;
+        [self.taskNotificationCheckbox setUserInteractionEnabled:NO];
         
         self.UIDatePickerControl.date = [self.currentTask dueDate];
         self.UIDatePickerControl.userInteractionEnabled = NO;
@@ -99,33 +105,51 @@
 }
 
 -(void)saveButtonPressed {
-    [self.currentTask setName:self.tasknameTextField.text];
-    [self.currentTask setCategory:self.categoryTextField.text];
-    //    [self.currentTask setIsTaskCompleted:0];
-    //    [self.currentTask setNotifyTask:0];
-    //    [self.currentTask setCategoryColor:@""];
     
-    NSDate *date = self.UIDatePickerControl.date;
-    [self.currentTask setDueDate:date];
-    
-    [self.currentTask setNotifyTask:[NSNumber numberWithBool:self.taskNotificationCheckbox.selected]];
-    if ([[self.currentTask notifyTask]boolValue]) {
-        if ([self.tasknameTextField.text length] != 0) {
-            UILocalNotification *localNotification = [[UILocalNotification alloc]init];
-            localNotification.fireDate = date;
-            localNotification.alertBody = self.tasknameTextField.text;
-            localNotification.soundName = UILocalNotificationDefaultSoundName;
-            
-            localNotification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@%@%lu",date, [self.tasknameTextField.text substringToIndex:([self.tasknameTextField.text length] -1)], (unsigned long)[self.tasknameTextField.text length]], @"uniqueSig", nil];
-            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    if (([self.tasknameTextField.text length] != 0) && ([self.categoryTextField.text length] != 0)) {
+        [self.currentTask setName:self.tasknameTextField.text];
+        [self.currentTask setCategory:self.categoryTextField.text];
+        //    [self.currentTask setIsTaskCompleted:0];
+        //    [self.currentTask setNotifyTask:0];
+        //    [self.currentTask setCategoryColor:@""];
+        
+        NSDate *date = self.UIDatePickerControl.date;
+        [self.currentTask setDueDate:date];
+        
+        [self.currentTask setCategory:self.categoryTextField.text];
+        self.categoriesDictionary = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults]objectForKey:@"TaskCategories"]];
+        
+        [self.currentTask setCategoryColor:[self.categoriesDictionary objectForKey:self.categoryTextField.text]];
+        
+        [self.currentTask setNotifyTask:[NSNumber numberWithBool:self.taskNotificationCheckbox.selected]];
+        if (self.taskNotificationCheckbox.selected) {
+            if ([self.tasknameTextField.text length] != 0) {
+                UILocalNotification *localNotification = [[UILocalNotification alloc]init];
+                localNotification.fireDate = date;
+                localNotification.alertBody = self.tasknameTextField.text;
+                localNotification.soundName = UILocalNotificationDefaultSoundName;
+                
+                localNotification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@%@%lu",date, [self.tasknameTextField.text substringToIndex:([self.tasknameTextField.text length] -1)], (unsigned long)[self.tasknameTextField.text length]], @"uniqueSig", nil];
+                [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+                
+                
+                NSMutableArray *localNotificationBackupArray = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"localNotificationBackup"]];
+                 NSData *data = [NSKeyedArchiver archivedDataWithRootObject:localNotification];
+                [localNotificationBackupArray addObject:data];
+                [[NSUserDefaults standardUserDefaults]setObject:localNotificationBackupArray forKey:@"localNotificationBackup"];
+            }
         }
-    }
 #warning Need to handle a situation where the user might click on back after clicking on save.
-    
-    if (self.isAddingTask) {
-        [self.delegate addTaskDidSaveOnEdit:NO];
+        
+        if (self.isAddingTask) {
+            [self.delegate addTaskDidSaveOnEdit:NO];
+        }else{
+            [self.delegate addTaskDidSaveOnEdit:YES];
+        }
     }else{
-        [self.delegate addTaskDidSaveOnEdit:YES];
+        
+        UIAlertView *errorAlert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Please fill in all the details before saving your task" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [errorAlert show];
     }
 }
 
@@ -136,20 +160,24 @@
 -(void)editButtonPressed {
     self.tasknameTextField.enabled = YES;
     self.categoryTextField.enabled = YES;
+    [self.taskNotificationCheckbox setUserInteractionEnabled:YES];
     self.UIDatePickerControl.userInteractionEnabled = YES;
     self.UIDatePickerControl.alpha = 1.0f;
     
     self.customNavigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonPressed)];
     
     NSString *uniqueID = [NSString stringWithFormat:@"%@%@%lu",self.UIDatePickerControl.date, [self.tasknameTextField.text substringToIndex:([self.tasknameTextField.text length] -1)], (unsigned long)[self.tasknameTextField.text length]];
-  
+    
     NSMutableArray *Arr=[[NSMutableArray alloc] initWithArray:[[UIApplication sharedApplication]scheduledLocalNotifications]];
     for (int k=0;k<[Arr count];k++) {
         UILocalNotification *not=[Arr objectAtIndex:k];
-        NSString *DateString=[not.userInfo valueForKey:@"uniqueSig"];
-        if([DateString isEqualToString:uniqueID])
+        NSString *uniqueString=[not.userInfo valueForKey:@"uniqueSig"];
+        if([uniqueString isEqualToString:uniqueID])
         {
             [[UIApplication sharedApplication] cancelLocalNotification:not];
+            [[[NSUserDefaults standardUserDefaults] objectForKey:@"localNotificationBackup"] removeObject:not];
+            [self.currentTask setNotifyTask:[NSNumber numberWithBool:NO]];
+            [self.taskNotificationCheckbox setSelected:NO];
         }
     }
 }
@@ -161,4 +189,36 @@
         [self.taskNotificationCheckbox setSelected:YES];
     }
 }
+
+- (IBAction)categoryTextFieldEditingDidBegin:(id)sender {
+    
+    UIActionSheet *categoryActionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose a category" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
+    
+    self.categoryArray = [NSArray arrayWithArray:[[[NSUserDefaults standardUserDefaults]objectForKey:@"TaskCategories"] allKeys]];
+    
+    
+    for (NSString *key in self.categoryArray) {
+        [categoryActionSheet addButtonWithTitle:key];
+    }
+    
+    [categoryActionSheet showInView:self.view];
+    [self.categoryTextField resignFirstResponder];
+    
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    [self.categoryTextField resignFirstResponder];
+}
+
+#pragma mark UIActionSheetDelegate methods
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    [self.categoryTextField setText:[self.categoryArray objectAtIndex:buttonIndex]];
+    
+    //Not working when called on category textField for some reason
+    [self.tasknameTextField becomeFirstResponder];
+    [self.tasknameTextField resignFirstResponder];
+}
+
 @end

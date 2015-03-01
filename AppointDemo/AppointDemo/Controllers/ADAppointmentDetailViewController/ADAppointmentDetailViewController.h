@@ -11,7 +11,7 @@
 
 @protocol ADAppointmentDetailViewControllerDelegate;
 
-@interface ADAppointmentDetailViewController : UIViewController<UITextFieldDelegate>
+@interface ADAppointmentDetailViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate>
 @property (nonatomic,assign) BOOL isAddingTask;
 @property (nonatomic,strong) Task *currentTask;
 @property (nonatomic,weak) id <ADAppointmentDetailViewControllerDelegate>delegate;

@@ -27,8 +27,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"Settings";
-    [self.disableAllNotificationsButton setImage:[UIImage imageNamed:@"emptyRadioButton"] forState:UIControlStateNormal];
-    [self.disableAllNotificationsButton setImage:[UIImage imageNamed:@"filledRadioButton"] forState:UIControlStateSelected];
+    [self.disableAllNotificationsButton setBackgroundImage:[UIImage imageNamed:@"emptyRadioButton"] forState:UIControlStateNormal];
+    [self.disableAllNotificationsButton setBackgroundImage:[UIImage imageNamed:@"filledRadioButton"] forState:UIControlStateSelected];
     [self.categoriesTableView setDelegate:self];
     [self.categoriesTableView setDataSource:self];
     [self.addCategoriesTextField setDelegate:self];
@@ -38,9 +38,10 @@
     self.categoriesDictionary = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults]objectForKey:@"TaskCategories"]];
     
     self.sortDescriptorsButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+//    [self.sortDescriptorsButton setTextColor:[UIColor whiteColor] forState:UIControlStateSelected];
 }
 
-- (void)initiaizeViewValues {
+- (void)initializeViewValues {
     if ([[[NSUserDefaults standardUserDefaults]stringForKey:@"SelectedSortDescriptor"] isEqualToString:@"name"]) {
         [self.sortDescriptorsButton.titleLabel setText:@"Name"];
     }else if([[[NSUserDefaults standardUserDefaults]stringForKey:@"SelectedSortDescriptor"] isEqualToString:@"dueDate"]) {
@@ -49,8 +50,9 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [self initiaizeViewValues];
+    [self initializeViewValues];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -76,10 +78,18 @@
     
     SEL labelColor = NSSelectorFromString([self.categoriesDictionary objectForKey:[keysArray objectAtIndex:indexPath.row]]);
     [cell setBackgroundColor:[UIColor performSelector:labelColor]];
+    [cell setSeparatorInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 10.0f)];
     [cell.textLabel setTextColor:[UIColor whiteColor]];
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 20.0f;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return @"Categories";
+}
 /*
  #pragma mark - Navigation
  
@@ -91,6 +101,11 @@
  */
 
 #pragma mark UITextField delegate methods
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self.addCategoriesTextField resignFirstResponder];
+    return YES;
+}
+
 - (IBAction)categoryTextFieldEditingDidEnd:(id)sender {
     if (self.addCategoriesTextField.text.length != 0) {
         [self.addCategoriesTextField resignFirstResponder];
@@ -101,18 +116,20 @@
     }
 }
 
+
+#pragma mark IBAction button Actions
 - (IBAction)disableNotificationsButtonPressed:(id)sender {
-    
     if (self.disableAllNotificationsButton.selected) {
         [self.disableAllNotificationsButton setSelected:NO];
+        NSMutableArray *localNotificationBackupArray = [NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"localNotificationBackup"]];
+        for (NSData *notificationData in localNotificationBackupArray) {
+            UILocalNotification *localNotification = [NSKeyedUnarchiver unarchiveObjectWithData:notificationData];
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        }
     }else {
         [self.disableAllNotificationsButton setSelected:YES];
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
     }
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [self.addCategoriesTextField resignFirstResponder];
-    return YES;
 }
 
 - (IBAction)sortDescriptorButtonPressed:(id)sender {
@@ -135,8 +152,8 @@
         }
         [[NSUserDefaults standardUserDefaults]
          setObject:sortDescriptor forKey:@"SelectedSortDescriptor"];
+   
     }else if(actionSheet.tag == 1){
-        
         NSString *colorString;
         if (buttonIndex == 0) {
             colorString = @"redColor";
@@ -149,11 +166,8 @@
         [self.categoriesDictionary setObject:colorString forKey:self.addCategoriesTextField.text];
         [[NSUserDefaults standardUserDefaults] setObject:self.categoriesDictionary forKey:@"TaskCategories"];
     }
-    [self initiaizeViewValues];
+    [self initializeViewValues];
     [self.categoriesTableView reloadData];
 }
 
--(UIColor*)colorBasedOnValue:(NSString*)valueString{
-    return [UIColor greenColor];
-}
 @end
