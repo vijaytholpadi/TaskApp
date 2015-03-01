@@ -44,15 +44,6 @@
 }
 
 
-- (void)initializeViewValues {
-    if ([[[NSUserDefaults standardUserDefaults]stringForKey:@"SelectedSortDescriptor"] isEqualToString:@"name"]) {
-        [self.sortDescriptorsButton.titleLabel setText:@"Name"];
-    }else if([[[NSUserDefaults standardUserDefaults]stringForKey:@"SelectedSortDescriptor"] isEqualToString:@"dueDate"]) {
-        [self.sortDescriptorsButton.titleLabel setText:@"Due Date"];
-    }
-}
-
-
 - (void)viewDidAppear:(BOOL)animated {
     [self initializeViewValues];
 }
@@ -61,6 +52,16 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - View preparation
+- (void)initializeViewValues {
+    if ([[[NSUserDefaults standardUserDefaults]stringForKey:@"SelectedSortDescriptor"] isEqualToString:@"name"]) {
+        [self.sortDescriptorsButton.titleLabel setText:@"Name"];
+    }else if([[[NSUserDefaults standardUserDefaults]stringForKey:@"SelectedSortDescriptor"] isEqualToString:@"dueDate"]) {
+        [self.sortDescriptorsButton.titleLabel setText:@"Due Date"];
+    }
 }
 
 
@@ -120,7 +121,7 @@
  }
  */
 
-#pragma mark UITextField delegate methods
+#pragma mark - UITextField delegate methods
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self.addCategoriesTextField resignFirstResponder];
     return YES;
@@ -138,7 +139,7 @@
 }
 
 
-#pragma mark IBAction button Actions
+#pragma mark - IBAction button Actions
 - (IBAction)disableNotificationsButtonPressed:(id)sender {
     if (self.disableAllNotificationsButton.selected) {
         [self.disableAllNotificationsButton setSelected:NO];

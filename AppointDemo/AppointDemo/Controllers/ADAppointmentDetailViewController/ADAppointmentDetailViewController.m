@@ -63,6 +63,8 @@
  }
  */
 
+
+#pragma mark - Methods to setup the UI initially
 - (void)setupNavigationBar {
     UIBarButtonItem *leftSideButton;
     UIBarButtonItem *rightSideButton;
@@ -107,7 +109,7 @@
 }
 
 
-#pragma BarButtonItem methods
+#pragma mark - BarButtonItem methods
 - (void)cancelButtonPressed {
     [self.delegate addTaskDidCancelTask:self.currentTask editAttempted:NO];
 }
@@ -146,7 +148,7 @@
                 [[NSUserDefaults standardUserDefaults]setObject:localNotificationBackupArray forKey:@"localNotificationBackup"];
             }
         }
-#warning Need to handle a situation where the user might click on back after clicking on save.
+
         if (self.isAddingTask) {
             [self.delegate addTaskDidSaveOnEdit:NO];
         } else {
@@ -191,6 +193,7 @@
 }
 
 
+#pragma mark - Functionality methods for UI elements
 - (IBAction)notifyTaskButtonPressed:(id)sender {
     if (self.taskNotificationCheckbox.selected) {
         [self.taskNotificationCheckbox setSelected:NO];
@@ -200,6 +203,7 @@
 }
 
 
+#pragma mark - UITextField Delegate methods
 - (IBAction)categoryTextFieldEditingDidBegin:(id)sender {
     UIActionSheet *categoryActionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose a category" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles: nil];
     
@@ -212,7 +216,6 @@
     
     [categoryActionSheet showInView:self.view];
     [self.categoryTextField resignFirstResponder];
-    
 }
 
 
@@ -221,8 +224,7 @@
 }
 
 
-#pragma mark UIActionSheetDelegate methods
-
+#pragma mark - UIActionSheetDelegate methods
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     [self.categoryTextField setText:[self.categoryArray objectAtIndex:buttonIndex]];
     

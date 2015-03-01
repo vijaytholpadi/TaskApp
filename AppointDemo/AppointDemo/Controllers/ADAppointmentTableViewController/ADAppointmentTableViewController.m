@@ -54,8 +54,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 }
 
 
-#pragma mark - Table view data source
-
+#pragma mark - UITableView data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
     return [[self.fetchedResultsController sections]count];
@@ -145,30 +144,6 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 }
 
 
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
-
 #pragma mark Fetched Results Controller section
 - (NSFetchedResultsController *)fetchedResultsController {
     if (_fetchedResultsController != nil) {
@@ -255,7 +230,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 }
 
 
-#pragma mark navigation bar button item methods
+#pragma mark - navigation bar button item methods
 - (void)addAppointmentButtonPressed {
     ADAppointmentDetailViewController *AddAppointmentVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ADAppointmentDetailViewController"];
     AddAppointmentVC.isAddingTask = YES;
@@ -272,7 +247,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 }
 
 
-#pragma mark ADAppointmentDetailViewControllerDelegate methods
+#pragma mark - ADAppointmentDetailViewControllerDelegate methods
 - (void)addTaskDidSaveOnEdit:(BOOL)editingMode {
     NSError *error;
     if (![[self managedObjectContext]save:&error]) {
@@ -296,7 +271,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
+#pragma mark - ADAppointmentTableViewCellDelegate delegate methods
 - (void)didchangeTaskCompletionStatusAtCell:(ADAppointmentTableViewCell *)cell toComplete:(BOOL)completionStatus {
     Task *targetTask = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:cell]];
     targetTask.isTaskCompleted = [NSNumber numberWithBool:completionStatus];

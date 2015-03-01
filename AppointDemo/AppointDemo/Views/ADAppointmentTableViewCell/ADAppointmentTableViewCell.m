@@ -25,6 +25,7 @@
 }
 
 
+#pragma mark - self delegate Methods
 - (IBAction)markTaskAsCompletedPressed:(id)sender {
     if (self.taskCompletedButton.selected) {
         [self.taskCompletedButton setSelected:NO];
