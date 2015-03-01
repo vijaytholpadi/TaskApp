@@ -48,7 +48,7 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
-                            <action selector="markAsCompletedPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hud-0R-tun"/>
+                            <action selector="markTaskAsCompletedPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hev-MV-Yqx"/>
                         </connections>
                     </button>
                 </subviews>

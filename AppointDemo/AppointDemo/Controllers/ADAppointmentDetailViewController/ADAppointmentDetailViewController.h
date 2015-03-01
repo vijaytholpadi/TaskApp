@@ -17,7 +17,6 @@
 @property (nonatomic,weak) id <ADAppointmentDetailViewControllerDelegate>delegate;
 
 @property (weak, nonatomic) IBOutlet UITextField *tasknameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *dueDateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *categoryTextField;
 @property (weak, nonatomic) IBOutlet UIButton *taskNotificationCheckbox;
 

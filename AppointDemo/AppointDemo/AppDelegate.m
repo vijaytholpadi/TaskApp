@@ -21,6 +21,31 @@
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     ADAppointmentTableViewController *appointmentTableVC = [[navigationController viewControllers]objectAtIndex:0];
     appointmentTableVC.managedObjectContext  = self.managedObjectContext;
+    
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert ) categories:nil]];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
+    else {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+         ( UIUserNotificationTypeSound | UIUserNotificationTypeAlert)];
+    }
+
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"TaskCategories"] == nil) {
+        NSDictionary *categoryDictionary1 = [NSDictionary dictionaryWithObject:@"RedColor" forKey:@"Family"];
+        NSDictionary *categoryDictionary2 = [NSDictionary dictionaryWithObject:@"BlueColor" forKey:@"Office"];
+        NSDictionary *categoryDictionary3 = [NSDictionary dictionaryWithObject:@"purpleColor" forKey:@"Personal"];
+        NSDictionary *categoryDictionary4 = [NSDictionary dictionaryWithObject:@"grayColor" forKey:@"Misc"];
+        NSArray *categoryArray = [NSArray arrayWithObjects: categoryDictionary1, categoryDictionary2, categoryDictionary3, categoryDictionary4, nil];
+
+        [[NSUserDefaults standardUserDefaults] setObject:categoryArray forKey:@"TaskCategories"];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"SelectedSortDescriptor"] == nil) {
+        [[NSUserDefaults standardUserDefaults] setObject:@"Date" forKey:@"SelectedSortDescriptor"];
+    }
+    
     return YES;
 }
 

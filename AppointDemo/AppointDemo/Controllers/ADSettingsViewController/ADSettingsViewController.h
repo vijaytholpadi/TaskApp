@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ADSettingsViewController : UIViewController
+@interface ADSettingsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 
 @end

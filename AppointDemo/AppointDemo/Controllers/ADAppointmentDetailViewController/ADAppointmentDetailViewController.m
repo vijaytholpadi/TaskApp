@@ -78,17 +78,19 @@
     
     self.tasknameTextField.text = [self.currentTask name];
     self.categoryTextField.text = [self.currentTask category];
-    self.dueDateTextField.text = [NSString stringWithFormat:@"%@", [self.currentTask dueDate]];
-    self.dueDateTextField.delegate = self;
+    NSDate *date = [NSDate date];
+    self.UIDatePickerControl.date = date;
     if ([[self.currentTask notifyTask] boolValue]) {
         [self.taskNotificationCheckbox setSelected:YES];
     }
 
     if (!self.isAddingTask) {
         self.tasknameTextField.enabled = NO;
-        self.dueDateTextField.enabled = NO;
         self.categoryTextField.enabled = NO;
-        self.UIDatePickerControl.hidden = YES;
+        
+        self.UIDatePickerControl.date = [self.currentTask dueDate];
+        self.UIDatePickerControl.userInteractionEnabled = NO;
+        self.UIDatePickerControl.alpha = 0.4f;
     }
 }
 #pragma BarButtonItem methods
@@ -103,12 +105,22 @@
     //    [self.currentTask setNotifyTask:0];
     //    [self.currentTask setCategoryColor:@""];
     
-    NSString *dateString = self.dueDateTextField.text;
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
-    NSDate *dateFromString = [[NSDate alloc] init];
-    dateFromString = [dateFormatter dateFromString:dateString];
-    [self.currentTask setDueDate:dateFromString];
+    NSDate *date = self.UIDatePickerControl.date;
+    [self.currentTask setDueDate:date];
+    
+    [self.currentTask setNotifyTask:[NSNumber numberWithBool:self.taskNotificationCheckbox.selected]];
+    if ([[self.currentTask notifyTask]boolValue]) {
+        if ([self.tasknameTextField.text length] != 0) {
+            UILocalNotification *localNotification = [[UILocalNotification alloc]init];
+            localNotification.fireDate = date;
+            localNotification.alertBody = self.tasknameTextField.text;
+            localNotification.soundName = UILocalNotificationDefaultSoundName;
+            
+            localNotification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@%@%lu",date, [self.tasknameTextField.text substringToIndex:([self.tasknameTextField.text length] -1)], (unsigned long)[self.tasknameTextField.text length]], @"uniqueSig", nil];
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        }
+    }
+#warning Need to handle a situation where the user might click on back after clicking on save.
     
     if (self.isAddingTask) {
         [self.delegate addTaskDidSaveOnEdit:NO];
@@ -123,15 +135,25 @@
 
 -(void)editButtonPressed {
     self.tasknameTextField.enabled = YES;
-    self.dueDateTextField.enabled = YES;
     self.categoryTextField.enabled = YES;
+    self.UIDatePickerControl.userInteractionEnabled = YES;
+    self.UIDatePickerControl.alpha = 1.0f;
     
     self.customNavigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveButtonPressed)];
-}
-- (IBAction)dueDateLabelClicked:(id)sender {
-    [self.UIDatePickerControl setHidden:NO];
     
+    NSString *uniqueID = [NSString stringWithFormat:@"%@%@%lu",self.UIDatePickerControl.date, [self.tasknameTextField.text substringToIndex:([self.tasknameTextField.text length] -1)], (unsigned long)[self.tasknameTextField.text length]];
+  
+    NSMutableArray *Arr=[[NSMutableArray alloc] initWithArray:[[UIApplication sharedApplication]scheduledLocalNotifications]];
+    for (int k=0;k<[Arr count];k++) {
+        UILocalNotification *not=[Arr objectAtIndex:k];
+        NSString *DateString=[not.userInfo valueForKey:@"uniqueSig"];
+        if([DateString isEqualToString:uniqueID])
+        {
+            [[UIApplication sharedApplication] cancelLocalNotification:not];
+        }
+    }
 }
+
 - (IBAction)notifyTaskButtonPressed:(id)sender {
     if (self.taskNotificationCheckbox.selected) {
         [self.taskNotificationCheckbox setSelected:NO];

@@ -12,9 +12,9 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hg0-s9-e1i">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.031372549020000001" green="0.1137254902" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="0.75082236840000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" shouldIndentWhileEditing="NO" id="ysD-bz-ZGa">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="ADAppointmentTableViewCell" id="ysD-bz-ZGa">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ysD-bz-ZGa" id="YC4-oJ-RKt">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -52,24 +52,14 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nIM-yt-ecz" userLabel="SortTasksTextField">
-                                <rect key="frame" x="204" y="90.5" width="100" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="OUs-Nv-SsN"/>
-                                    <constraint firstAttribute="height" constant="30" id="gku-6g-z8V"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disable all notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s1G-cN-DlH">
-                                <rect key="frame" x="16" y="137.5" width="176.5" height="20.5"/>
+                                <rect key="frame" x="16" y="137" width="176.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCO-Nf-wCW">
-                                <rect key="frame" x="258" y="133.5" width="46" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCO-Nf-wCW">
+                                <rect key="frame" x="239" y="133" width="30" height="30"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -78,13 +68,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajJ-a2-mEa">
-                                <rect key="frame" x="16" y="179.5" width="88" height="20.5"/>
+                                <rect key="frame" x="16" y="179" width="88" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tGK-SH-3Im">
-                                <rect key="frame" x="204" y="170" width="100" height="30"/>
+                                <rect key="frame" x="169" y="170" width="100" height="30"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="9V7-ic-ONo"/>
@@ -93,8 +83,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQk-p6-TLI" userLabel="SortDescriptorButton">
+                                <rect key="frame" x="177" y="91" width="100" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="G2k-kO-Run"/>
+                                    <constraint firstAttribute="height" constant="30" id="eKq-Hl-7Tm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="                       ">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sortDescriptorButtonPressed:" destination="czG-l7-oJL" eventType="touchUpInside" id="Hz6-eL-D4e"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cM3-vy-tMS">
-                                <rect key="frame" x="0.0" y="207.5" width="320" height="272"/>
+                                <rect key="frame" x="0.0" y="207" width="320" height="273"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -102,25 +108,25 @@
                         <constraints>
                             <constraint firstItem="jpJ-h3-viy" firstAttribute="top" secondItem="cM3-vy-tMS" secondAttribute="bottom" id="3ta-z1-cgt"/>
                             <constraint firstItem="cM3-vy-tMS" firstAttribute="leading" secondItem="ft8-1y-tTi" secondAttribute="leadingMargin" constant="-16" id="FNE-lE-abm"/>
-                            <constraint firstItem="nIM-yt-ecz" firstAttribute="leading" secondItem="s1G-cN-DlH" secondAttribute="leading" id="K6q-Kh-RiS"/>
                             <constraint firstItem="XGF-CQ-TPF" firstAttribute="top" secondItem="IUA-eL-uWg" secondAttribute="bottom" constant="31" id="KY9-Cf-wJq"/>
-                            <constraint firstItem="nIM-yt-ecz" firstAttribute="trailing" secondItem="ft8-1y-tTi" secondAttribute="trailingMargin" id="Ork-hT-dgq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xQk-p6-TLI" secondAttribute="trailing" constant="27" id="SrX-fe-7MC"/>
+                            <constraint firstItem="aCO-Nf-wCW" firstAttribute="centerY" secondItem="xQk-p6-TLI" secondAttribute="centerY" id="VeK-P5-TLY"/>
                             <constraint firstItem="ajJ-a2-mEa" firstAttribute="top" secondItem="s1G-cN-DlH" secondAttribute="bottom" constant="21" id="XvJ-Ox-JyQ"/>
-                            <constraint firstItem="s1G-cN-DlH" firstAttribute="top" secondItem="nIM-yt-ecz" secondAttribute="bottom" constant="17" id="YaY-nI-AJ4"/>
-                            <constraint firstItem="XGF-CQ-TPF" firstAttribute="centerY" secondItem="nIM-yt-ecz" secondAttribute="centerY" constant="-0.5" id="aRU-4S-HUR"/>
                             <constraint firstItem="ajJ-a2-mEa" firstAttribute="centerY" secondItem="tGK-SH-3Im" secondAttribute="centerY" constant="4.5" id="aa9-EY-z1z"/>
-                            <constraint firstItem="aCO-Nf-wCW" firstAttribute="trailing" secondItem="nIM-yt-ecz" secondAttribute="trailing" id="cae-F4-uV0"/>
+                            <constraint firstItem="aCO-Nf-wCW" firstAttribute="centerX" secondItem="xQk-p6-TLI" secondAttribute="centerX" constant="27" id="gLW-E6-LhF"/>
                             <constraint firstItem="XGF-CQ-TPF" firstAttribute="leading" secondItem="s1G-cN-DlH" secondAttribute="leading" id="i5S-WL-ueS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cM3-vy-tMS" secondAttribute="trailing" constant="-16" id="ib5-D7-Rcb"/>
+                            <constraint firstItem="s1G-cN-DlH" firstAttribute="top" secondItem="XGF-CQ-TPF" secondAttribute="bottom" constant="22" id="jbd-1i-GOx"/>
                             <constraint firstItem="cM3-vy-tMS" firstAttribute="top" secondItem="ajJ-a2-mEa" secondAttribute="bottom" constant="8" id="k5z-Ux-gyY"/>
                             <constraint firstItem="aCO-Nf-wCW" firstAttribute="centerY" secondItem="s1G-cN-DlH" secondAttribute="centerY" constant="0.5" id="kNC-It-Ec4"/>
                             <constraint firstItem="aCO-Nf-wCW" firstAttribute="trailing" secondItem="tGK-SH-3Im" secondAttribute="trailing" id="n8O-fJ-njR"/>
                             <constraint firstItem="XGF-CQ-TPF" firstAttribute="leading" secondItem="ft8-1y-tTi" secondAttribute="leadingMargin" id="o0h-qy-ULI"/>
+                            <constraint firstItem="xQk-p6-TLI" firstAttribute="centerY" secondItem="XGF-CQ-TPF" secondAttribute="centerY" constant="0.75" id="wI5-Ys-GGr"/>
                             <constraint firstItem="s1G-cN-DlH" firstAttribute="leading" secondItem="ajJ-a2-mEa" secondAttribute="leading" id="zdD-D2-hYb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="K6q-Kh-RiS"/>
+                                <exclude reference="VeK-P5-TLY"/>
                             </mask>
                         </variation>
                     </view>
@@ -129,8 +135,9 @@
                     <size key="freeformSize" width="320" height="480"/>
                     <connections>
                         <outlet property="addCategoriesTextField" destination="tGK-SH-3Im" id="o9M-4R-We4"/>
+                        <outlet property="categoriesTableView" destination="cM3-vy-tMS" id="9m9-oc-m7c"/>
                         <outlet property="disableAllNotificationsButton" destination="aCO-Nf-wCW" id="wZO-JT-bS9"/>
-                        <outlet property="sortTasksOptionTextField" destination="nIM-yt-ecz" id="FCP-9D-99x"/>
+                        <outlet property="sortDescriptorsButton" destination="xQk-p6-TLI" id="ewz-IT-qiS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tyS-bm-SCx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -149,7 +156,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCo-0b-USP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Task name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCo-0b-USP">
                                 <rect key="frame" x="16" y="90" width="87" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -157,29 +164,20 @@
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHp-Gf-Hwc" userLabel="TasknameTextField">
                                 <rect key="frame" x="120" y="86" width="184" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5wf-VI-jjI" userLabel="DueDateTextField">
-                                <rect key="frame" x="120" y="280" width="184" height="30"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="dueDateLabelClicked:" destination="kD4-9P-UFZ" eventType="touchDown" id="vAW-pW-R0O"/>
-                                </connections>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rya-Ed-K2I">
-                                <rect key="frame" x="16" y="128" width="75" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rya-Ed-K2I">
+                                <rect key="frame" x="16" y="128" width="71" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KRf-Fu-JDE" userLabel="CategoryTextField">
                                 <rect key="frame" x="120" y="124" width="184" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -219,8 +217,8 @@
                                 </date>
                                 <locale key="locale" localeIdentifier="en_US"/>
                             </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOn-SM-AK8">
-                                <rect key="frame" x="13" y="289" width="77" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOn-SM-AK8">
+                                <rect key="frame" x="13" y="289" width="76.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -228,9 +226,11 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="7Ne-N4-8QV" firstAttribute="leading" secondItem="pOn-SM-AK8" secondAttribute="leading" constant="-13" id="3Re-eK-ZIS"/>
                             <constraint firstItem="aCo-0b-USP" firstAttribute="leading" secondItem="HeB-QI-2dq" secondAttribute="leadingMargin" id="6g2-Iq-ay1"/>
                             <constraint firstItem="AIF-5T-9Mo" firstAttribute="top" secondItem="IoK-fK-E2t" secondAttribute="bottom" constant="-20" id="DIm-Vl-Ejd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AIF-5T-9Mo" secondAttribute="trailing" constant="-16" id="Hdw-kb-a4s"/>
+                            <constraint firstItem="7Ne-N4-8QV" firstAttribute="top" secondItem="pOn-SM-AK8" secondAttribute="bottom" constant="8" id="PQj-IH-sc0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7Ne-N4-8QV" secondAttribute="trailing" constant="-16" id="X4a-Iq-mpJ"/>
                             <constraint firstItem="aCo-0b-USP" firstAttribute="top" secondItem="IoK-fK-E2t" secondAttribute="bottom" constant="70" id="YCP-By-cw9"/>
                             <constraint firstItem="7Ne-N4-8QV" firstAttribute="leading" secondItem="HeB-QI-2dq" secondAttribute="leadingMargin" constant="-16" id="aAd-2v-RMf"/>
@@ -246,7 +246,6 @@
                         <outlet property="categoryTextField" destination="KRf-Fu-JDE" id="VUq-YC-lPu"/>
                         <outlet property="customNavigationBar" destination="AIF-5T-9Mo" id="jgq-K4-uU9"/>
                         <outlet property="customNavigationItem" destination="RSX-K7-cUb" id="OrD-fd-itV"/>
-                        <outlet property="dueDateTextField" destination="5wf-VI-jjI" id="aHf-5C-MoO"/>
                         <outlet property="taskNotificationCheckbox" destination="dOm-AI-tRG" id="2QG-9f-CGx"/>
                         <outlet property="tasknameTextField" destination="fHp-Gf-Hwc" id="Si0-j0-gjw"/>
                     </connections>

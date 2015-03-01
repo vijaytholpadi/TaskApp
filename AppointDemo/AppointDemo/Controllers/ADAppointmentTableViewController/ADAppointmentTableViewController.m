@@ -15,7 +15,7 @@
 
 static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableViewCell";
 
-@interface ADAppointmentTableViewController ()
+@interface ADAppointmentTableViewController ()<ADAppointmentTableViewCellDelegate>
 
 @end
 
@@ -50,6 +50,9 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     }
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -74,10 +77,17 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     
     // Configure the cell...
     Task *task = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
     cell.appointmentNameLabel.text = task.name;
-    cell.dueDateTextLabel.text = [NSString stringWithFormat:@"%@",task.dueDate];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    NSString *prettyVersion = [dateFormat stringFromDate:task.dueDate];
+    cell.dueDateTextLabel.text = prettyVersion;
+
+//    [cell.taskCompletedButton setSelected:[NSNumber numberWithBool:task.isTaskCompleted]];
     cell.separatorInset = UIEdgeInsetsMake(0.0f, 15.0f, 0.0f, 15.0f);
     cell.backgroundColor = [UIColor clearColor];
+    cell.delegate = self;
     return cell;
 }
 
@@ -122,7 +132,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
         [self.managedObjectContext deleteObject:taskToDelete];
         
         NSError *error;
-        if ([[self managedObjectContext] save:&error]) {
+        if (![[self managedObjectContext] save:&error]) {
             NSLog(@"%@",error);
         }
     }
@@ -155,6 +165,10 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 #pragma mark Fetched Results Controller section
 -(NSFetchedResultsController *)fetchedResultsController{
     if (_fetchedResultsController != nil) {
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:[[NSUserDefaults standardUserDefaults]stringForKey:@"SelectedSortDescriptor"]
+                                                                       ascending:YES];
+        [_fetchedResultsController.fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+
         return _fetchedResultsController;
     }
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -166,7 +180,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     //    [fetchRequest setPredicate:predicate];
     
     // Specify how the fetched objects should be sorted
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name"
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:[[NSUserDefaults standardUserDefaults]stringForKey:@"SelectedSortDescriptor"]
                                                                    ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
     
@@ -210,8 +224,13 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
         }
         case NSFetchedResultsChangeUpdate: {
             Task *changedTask = [self.fetchedResultsController objectAtIndexPath:indexPath];
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            cell.textLabel.text = changedTask.name;
+            ADAppointmentTableViewCell *cell = (ADAppointmentTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+            cell.appointmentNameLabel.text = changedTask.name;
+            
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            NSString *prettyVersion = [dateFormat stringFromDate:changedTask.dueDate];
+            cell.dueDateTextLabel.text = prettyVersion;
             break;
         }
         case NSFetchedResultsChangeMove:
@@ -239,7 +258,7 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
 #pragma mark ADAppointmentDetailViewControllerDelegate methods
 -(void)addTaskDidSaveOnEdit:(BOOL)editingMode{
     NSError *error;
-    if ([[self managedObjectContext]save:&error]) {
+    if (![[self managedObjectContext]save:&error]) {
         NSLog(@"%@",error);
     }
     if (editingMode) {
@@ -253,5 +272,15 @@ static NSString *ADAppointmentTableViewCellIdentifier = @"ADAppointmentTableView
     [self.managedObjectContext deleteObject:taskToCancel];
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)didchangeTaskCompletionStatusAtCell:(ADAppointmentTableViewCell *)cell toComplete:(BOOL)completionStatus{
+    Task *targetTask = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:cell]];
+    targetTask.isTaskCompleted = [NSNumber numberWithBool:completionStatus];
+   
+    NSError *error;
+    if (![[self managedObjectContext]save:&error]) {
+        NSLog(@"%@",error);
+    }
 }
 @end
